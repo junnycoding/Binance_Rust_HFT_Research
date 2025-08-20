@@ -13,6 +13,7 @@
 
 이 코드는 바이낸스 선물(Futures) API의 웹소켓(WebSocket)을 사용하여
 저지연(low-latency)으로 시장가 주문(Market Order)을 실행하는 Rust 프로그램입니다.
+
 주요 기능:
 1. 비동기 통신: `tokio`와 `tokio-tungstenite`를 사용하여 웹소켓에 비동기적으로 연결하고 통신합니다.
 2. 안전한 인증: API 키와 시크릿 키를 사용하여 HMAC-SHA256 서명을 생성하고, 이를 통해 모든 요청을 인증합니다.
