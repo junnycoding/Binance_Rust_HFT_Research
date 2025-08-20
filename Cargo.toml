@@ -1,0 +1,35 @@
+[package]
+name = "binance_rust_hft_test"
+version = "0.1.0"
+edition = "2025"
+
+[dependencies]
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "time", "sync"] }
+tokio-tungstenite = { version = "0.23", features = ["native-tls"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+hmac = "0.12"
+sha2 = "0.10"
+hex = "0.4"
+futures-util = { version = "0.3", default-features = false, features = ["sink", "std"] }
+chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
+uuid = { version = "1.8", features = ["v4", "fast-rng"] }
+
+# 최적화 프로파일 설정
+[profile.release]
+opt-level = 3          # 최대 최적화
+lto = true             # Link Time Optimization 활성화
+codegen-units = 1      # 단일 코드 생성 유닛으로 더 나은 최적화
+panic = "abort"        # panic 시 스택 되감기 비활성화로 바이너리 크기 감소
+strip = true           # 디버그 심볼 제거
+debug = false          # 디버그 정보 비활성화
+
+# 개발 중에도 빠른 성능을 원한다면
+[profile.dev]
+opt-level = 2          # 개발 중에도 어느정도 최적화
+
+# 벤치마킹용 프로파일
+[profile.bench]
+inherits = "release"
+lto = true
+codegen-units = 1
